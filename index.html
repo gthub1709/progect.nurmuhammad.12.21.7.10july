@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Путь Легенды</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Courier New', monospace;
+      background: black;
+    }
+
+    .backgrounds, .final-section {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+
+    .bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 2s ease;
+    }
+
+    .bg.active {
+      opacity: 1;
+    }
+
+    .title {
+      position: absolute;
+      top: 40%;
+      width: 100%;
+      text-align: center;
+      font-size: 4em;
+      color: #00ffcc;
+      text-shadow: 0 0 20px #00ffcc;
+      z-index: 10;
+      animation: fadeIn 3s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .matrix-layer {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: black;
+      z-index: 0;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+
+<!-- 1. СЛАЙДШОУ ИЗ 3 КИБЕР ФОНОВ -->
+<div class="backgrounds" id="slideShow">
+  <div class="bg" style="background-image: url('https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=1920&q=80')"></div>
+  <div class="bg" style="background-image: url('https://images.unsplash.com/photo-1600663001851-bd9f5d1d5244?auto=format&fit=crop&w=1920&q=80')"></div>
+  <div class="bg" style="background-image: url('https://images.unsplash.com/photo-1608133496730-7de1b9a4df3d?auto=format&fit=crop&w=1920&q=80')"></div>
+</div>
+
+<!-- 2. ГАРАЖ С МЕРСЕДЕСАМИ -->
+<div class="final-section" id="final" style="display: none;">
+  <img src="https://www.shutterstock.com/search/mercedes-garage" alt="Гараж с Mercedes-Benz" style="width: 100%; height: 100%; object-fit: cover;">
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.bg');
+  let current = 0;
+
+  function showNextSlide() {
+    slides.forEach((s, i) => s.classList.toggle('active', i === current));
+    current++;
+    if (current < slides.length) {
+      setTimeout(showNextSlide, 5000); // каждые 5 сек
+    } else {
+      // Показываем финал после последнего фона
+      document.getElementById('slideShow').style.display = 'none';
+      document.getElementById('final').style.display = 'block';
+    }
+  }
+
+  setTimeout(showNextSlide, 100); // старт анимации
+</script>
+
+</body>
+</html>
+
+
+
